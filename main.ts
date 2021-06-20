@@ -16,6 +16,14 @@ input.onButtonPressed(Button.A, function () {
     showNumber(0, points)
 })
 input.onButtonPressed(Button.B, function () {
+    if (generators[2] > 10) {
+        incrementGeneratorsByVal(2, -10)
+        incrementGeneratorsAt(3)
+    }
+    if (generators[1] > 10) {
+        incrementGeneratorsByVal(1, -10)
+        incrementGeneratorsAt(2)
+    }
     if (generators[0] > 10) {
         incrementGeneratorsByVal(0, -10)
         incrementGeneratorsAt(1)
