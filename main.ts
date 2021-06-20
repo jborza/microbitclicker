@@ -1,43 +1,54 @@
 function tick () {
-    points += generators * 1
-    generators += generators2 * 1
+    points += generators[0]
+    for (let index = 0; index <= 2; index++) {
+        incrementGeneratorsByVal(index, generators[index + 1])
+    }
     showAll()
 }
 function showAll () {
     showNumber(0, points)
-    showNumber(1, generators)
-    showNumber(2, generators2)
+    for (let index2 = 0; index2 <= 3; index2++) {
+        showNumber(index2 + 1, generators[index2])
+    }
 }
 input.onButtonPressed(Button.A, function () {
     points += 1
     showNumber(0, points)
 })
 input.onButtonPressed(Button.B, function () {
-    if (generators > 10) {
-        generators += -10
-        generators2 += 1
+    if (generators[0] > 10) {
+        incrementGeneratorsByVal(0, -10)
+        incrementGeneratorsAt(1)
     }
     if (points >= 10) {
         points += -10
-        generators += 1
+        incrementGeneratorsAt(0)
     }
     showAll()
 })
+function incrementGeneratorsAt (idx: number) {
+    generators[idx] = generators[idx] + 1
+}
 function showNumber (row: number, num: number) {
     let digit: number;
-for (let index = 0; index <= 4; index++) {
-        factor = 10 ** index
+for (let index3 = 0; index3 <= 4; index3++) {
+        factor = 10 ** index3
         digit = Math.idiv(num % (factor * 10), factor)
         brightness = Math.map(digit, 0, 9, 0, 255)
-        led.plotBrightness(index, row, brightness)
+        led.plotBrightness(index3, row, brightness)
     }
+}
+function incrementGeneratorsByVal (idx: number, num: number) {
+    generators[idx] = generators[idx] + num
 }
 let brightness = 0
 let factor = 0
-let generators2 = 0
-let generators = 0
 let points = 0
+let generators: number[] = []
 music.startMelody(music.builtInMelody(Melodies.BaDing), MelodyOptions.Once)
+generators = [0, 0, 0, 0]
+points = 0
+showAll()
 basic.forever(function () {
 	
 })
